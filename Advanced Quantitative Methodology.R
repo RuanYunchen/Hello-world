@@ -260,3 +260,28 @@ for (i in 1:n) {
   }
 }
 results
+
+##Day 2: Introduction to the Linear Model
+
+
+dat <- read.csv("lalonde.csv")
+dat$random.treat <- sample(c(0,1), 1:nrow(dat), replace = TRUE)
+pscore.form.2 <-as.formula("random.treat ~ age + education + black + hispanic + married + nodegree + re74 + re75")
+pscore.reg <- lm(pscore.form.2, data=dat)
+summary(pscore.reg)
+
+reg <-lm(re78 ~ treat,data = dat)
+summary(reg)
+names(reg)
+plot (dat$treat, dat$re78)
+abline(reg$coefficients[1],
+       reg$coefficients[2],
+       col = "red")
+
+control.form <- as.formula("re78 ~ treat + age + education + black + hispanic + married + nodegree + re74 +re75")
+reg.w.control <- lm(control.form , data = dat)
+summary(reg.w.control)
+
+abline(reg.w.control$coefficients[1],
+       reg.w.control$coefficients[2],
+       col = "blue")
