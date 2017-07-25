@@ -1,0 +1,12 @@
+myfunction()
+myfunction <- function(x){#
+	y <- rnorm(100)#
+	mean(y)#
+}
+ls()
+mycuntion()
+myfunction()
+getwd()
+dir()
+source("myfunction.R")
+source("myfunction.R")
