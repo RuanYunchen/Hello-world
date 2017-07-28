@@ -285,3 +285,38 @@ summary(reg.w.control)
 abline(reg.w.control$coefficients[1],
        reg.w.control$coefficients[2],
        col = "blue")
+
+summary(lm("re78 ~ treat + age + education + black + hispanic + married + nodegree + re74 +re75",data = dat))$coefficients['treat' , 'Estimate']
+
+
+##PSCORE MATCHING
+
+library(MatchIt)
+setwd("/Users/kinkin13/Downloads/【暑期课】Advanced Quantitative Methodology")
+dat <- read.csv("lalonde.csv")
+head(dat)
+match.formula <- as.formula("treat ~ age +education + black + hispanic + married + nodegree + re74 + re75")
+m.out <- matchit(match.formula, data = dat)
+summary(m.out)
+plot(m.out)
+?stop
+m.data <- match.data(m.out)
+mod.form <- as.formula("re78 ~ treat + age +education + black + hispanic + married + nodegree + re74 + re75")
+lm(mod.form, data = m.data)
+
+matchit(formula = match.formula, data = dat, method ="genetic")
+matchit(formula = match.formula, data = dat, method ="exact")
+install.packages("optmatch")
+matchit(formula = match.formula, data = dat, method ="full")
+
+m.out <- matchit(match.formula, data = dat)
+summary(m.out)
+
+m.out <- matchit(match.formula, data = dat, method="full")
+summary(m.out)
+
+
+
+##stm Package in R
+install.packages("stm")
+library(stm)
